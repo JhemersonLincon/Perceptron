@@ -1,6 +1,4 @@
 import random
-from matplotlib import pyplot as plt
-import numpy as np
 
 class perceptron:
     
@@ -16,7 +14,6 @@ class perceptron:
                 net = self._net(x[i], weight) 
                 yi = 1 if net >= 0 else 0
                 print(f"Valor esperado: {y[i]}\nValor predito: {yi}")
-                
                 for j in range(len(weight)):
                     weight[j] = weight[j] + 0.1 * (y[i] - yi) * x[i][j]
 
@@ -24,14 +21,11 @@ class perceptron:
             print(f"Fim {k}")
         
         
-    def _net(self, x, w):
-        net = 0
-        for i in range(len(x)):
-            #print(f"{x[i]} * {w[i]}")
-            net += x[i] * w[i]
+    def _net(self, x, w) -> float:
+        net = sum([a * b for a, b in zip(x, w)])
         return net
             
-    def _create_weight(self, inputs):
+    def _create_weight(self, inputs) -> list:
         weight = [random.uniform(-1, 1) for _ in range(inputs+1)]
         print(f"Weight: {weight}")
         return weight
